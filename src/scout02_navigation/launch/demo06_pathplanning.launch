@@ -1,0 +1,20 @@
+<launch>
+    <node pkg="move_base" type="move_base" name="move_base" respawn="false" output="screen" clear_params="true" >
+        <!-- <param name="base_global_planner" value="BAstar_planner/BAstarPlannerROS"/> -->
+        <!-- <param name="base_global_planner" value="global_planner/GlobalPlanner"/> -->
+        <!-- <param name="base_global_planner" value="rrt_star_global_planner/RRTStarPlanner"/> -->
+        <!-- <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS"/> -->
+        
+
+        <!-- costmap configuration -->
+        <rosparam file="$(find scout02_navigation)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find scout02_navigation)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find scout02_navigation)/param/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find scout02_navigation)/param/global_costmap_params.yaml" command="load" />
+
+        <!-- path_planner configuration -->
+        <rosparam file="$(find scout02_navigation)/param/base_local_planner_params.yaml" command="load" />
+        <!-- <rosparam file="$(find scout02_navigation)/param/dwa_local_planner_params.yaml" command="load" /> -->
+        <rosparam file="$(find scout02_navigation)/param/global_planner_params.yaml" command="load" />
+    </node>
+</launch>

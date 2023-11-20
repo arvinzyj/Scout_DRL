@@ -1,0 +1,16 @@
+<robot name="scout" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    
+    <!-- macro for inertial matrix -->
+    <xacro:include filename="macro_inertial.xacro" />
+    <!-- base -->
+    <xacro:include filename="scout_base.xacro" />
+    <xacro:include filename="gazebo/driving_control.xacro" />
+    <!-- camera -->
+    <xacro:include filename="scout_camera.xacro" />
+    <xacro:include filename="gazebo/camera_sensor.xacro" />
+    <!-- laser -->
+    <xacro:include filename="scout_laser.xacro" />
+    <xacro:include filename="gazebo/laser_sensor.xacro" />
+
+</robot>

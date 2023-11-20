@@ -1,0 +1,15 @@
+<launch>
+    <!-- 启动rviz -->
+    <!-- 关节状态发布节点 -->
+    <node pkg="joint_state_publisher" name="joint_state_publisher" type="joint_state_publisher" />
+    <!-- 机器人状态发布节点 -->
+    <node pkg="robot_state_publisher" name="robot_state_publisher" type="robot_state_publisher" />
+    <node pkg="rviz" type="rviz" name="rviz"
+        args="-d $(find scout02_navigation)/config/navigation.rviz" />
+
+    <!-- 加载地图服务 -->
+    <include file="$(find scout02_navigation)/launch/demo03_mapserver.launch" />
+
+    <!-- amcl -->
+    <include file="$(find scout02_navigation)/launch/demo04_amcl.launch" />
+</launch>

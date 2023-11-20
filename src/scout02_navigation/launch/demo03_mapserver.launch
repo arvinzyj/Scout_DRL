@@ -1,0 +1,5 @@
+<launch>
+    <arg name="map" default="map01.yaml" />
+    <node name="map_servre" pkg="map_server" type="map_server"
+        args="$(find scout02_navigation)/map/$(arg map)" />
+</launch>

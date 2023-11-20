@@ -1,0 +1,6 @@
+<launch>
+    <!-- SLAM建图 -->
+    <include file="$(find scout02_navigation)/launch/demo01_slam.launch" />
+    <!-- move_base -->
+    <include file="$(find scout02_navigation)/launch/demo06_pathplanning.launch" />
+</launch>
