@@ -81,7 +81,7 @@ class DQN:
         self.Epsilon            = 0.5
 
         # 第一次训练
-        self.load_path = '../scripts/saved_networks/obstacle_world_2023-11-16_v3'
+        self.load_path = '../scripts/saved_networks/obstacle_world_2023-11-17_v4'
 
         self.step    = 1
         self.score   = 0

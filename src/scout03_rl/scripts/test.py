@@ -10,7 +10,7 @@ from numpy import polyfit, poly1d
 # 选择'ggplot'样式
 plt.style.use("ggplot")
 
-step = np.arange(0, 249898, 407)
+step = np.arange(0, 249565, 355)
 reward = np.loadtxt('./saved_rewards/obstacle_world_reward.txt')
 
 # 创建曲线图
