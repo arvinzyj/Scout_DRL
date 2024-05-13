@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!-- 
+Author: AnthonySuen
+Date: 2020-4-8
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="universal_sensor_adder">
+    <xacro:macro name="add_sensor" params="sensor_name type x_offset y_offset z_offset r p y **sensor_config **sensor_plugin_config">
+        <link name="sensor_${sensor_name}">
+
+            <visual>
+                <geometry>
+                    <box size="0.03 0.05 0.05"/>
+                </geometry>
+                <material name="red">
+                    <color rgba="1.0 0.0 0.0 1.0"/>
+                </material>
+            </visual>
+
+            <collision>
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <geometry>
+                    <box size="0.03 0.05 0.05"/>
+                </geometry>
+            </collision>
+
+            <inertial>
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <mass value="1e-5"/>
+                <inertia ixx="1e-6" ixy="1e-6" ixz="1e-6" iyy="1e-6" iyz="1e-6" izz="1e-6"/>
+            </inertial>
+        </link>
+
+        <joint name="sensor_${sensor_name}_joint" type="fixed">
+            <parent link="base_link"/>
+            <child link="sensor_${sensor_name}"/>
+            <origin xyz="${x_offset} ${y_offset} ${z_offset}" rpy="${r} ${p} ${y}"/>
+        </joint>
+
+        <gazebo reference="sensor_${sensor_name}">           
+            <sensor name="${sensor_name}" type="${type}">
+
+                <xacro:insert_block name="sensor_config"/>
+                <xacro:insert_block name="sensor_plugin_config"/>
+            </sensor>
+        </gazebo>
+    </xacro:macro>
+</robot>
