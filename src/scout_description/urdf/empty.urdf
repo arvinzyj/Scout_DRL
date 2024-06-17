@@ -37,6 +37,12 @@ Date: 2020-4-8
         </sensor_plugin_config>
     </xacro:add_sensor>
 
+    <xacro:include filename="$(find realsense_ros_gazebo)/xacro/depthcam.xacro" />
+
+    <xacro:realsense_d435 sensor_name="camera" parent_link="base_link" rate="30.0">
+        <origin rpy="0 0 0" xyz="0 0 0.5" />
+    </xacro:realsense_d435>
+
     <!-- Add ray senser -->
     <xacro:add_sensor sensor_name="ray" type="ray" x_offset="0.1" y_offset="0.0" z_offset="0.14"
         r="0.0" p="0.0" y="0.0">
