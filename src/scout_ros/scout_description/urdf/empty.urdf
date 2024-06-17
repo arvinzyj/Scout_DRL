@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<!-- 
+Author: AnthonySuen
+Date: 2020-4-8
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="sensors">
+
+
+    <!-- <xacro:include filename="$(find scout_description)/urdf/universal_sensor_adder.xacro" /> -->
+
+    <!-- Add camera senser -->
+    <!-- <xacro:add_sensor sensor_name="camera" type="camera" x_offset="0.1" y_offset="0.0"
+        z_offset="0.085" r="0.0" p="0.0" y="0.0">
+
+        <sensor_config>
+            <update_rate>30</update_rate>
+            <camera name="general_camera">
+                <image width="640" height="480" hfov="1.5708" format="RGB8" near="0.01" far="50.0" />
+            </camera>
+        </sensor_config>
+
+        <sensor_plugin_config>
+            <plugin name="general_camera_controller" filename="libgazebo_ros_camera.so">
+                <alwaysOn>true</alwaysOn>
+                <updateRate>36.0</updateRate>
+                <cameraName>sensor_camera</cameraName>
+                <imageTopicName>image_raw</imageTopicName>
+                <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+                <frameName>sensor_camera</frameName>
+                <hackBaseline>0.1</hackBaseline>
+                <distortionK1>0.0</distortionK1>
+                <distortionK2>0.0</distortionK2>
+                <distortionK3>0.0</distortionK3>
+                <distortionT1>0.0</distortionT1>
+                <distortionT2>0.0</distortionT2>
+            </plugin>
+        </sensor_plugin_config>
+    </xacro:add_sensor> -->
+
+    <!-- <xacro:include filename="$(find realsense_ros_gazebo)/xacro/depthcam.xacro" /> -->
+
+    <!-- <xacro:realsense_d435 sensor_name="camera" parent_link="base_link" rate="30.0">
+        <origin rpy="0 0 0" xyz="0 0 0.5" />
+    </xacro:realsense_d435> -->
+
+    <!-- Add ray senser -->
+    <!-- <xacro:add_sensor sensor_name="ray" type="ray" x_offset="0.1" y_offset="0.0"
+    z_offset="0.14"
+        r="0.0" p="0.0" y="0.0">
+        <sensor_config>
+            <update_rate>8</update_rate>
+            <visualize>true</visualize>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>720</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-2.09439504</min_angle>
+                        <max_angle>2.09439504</max_angle>
+                    </horizontal>
+                </scan>
+                <range>
+                    <min>0.05</min>
+                    <max>8.0</max>
+                    <resolution>0.01</resolution>
+                </range>
+                <noise>
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.01</stddev>
+                </noise>
+            </ray>
+            <noise>
+                <type>gaussian</type>
+                <mean>0.0</mean>
+                <stddev>0.1</stddev>
+            </noise>
+        </sensor_config>
+
+        <sensor_plugin_config>
+            <plugin name="sensor_ray_controller" filename="libgazebo_ros_laser.so">
+                <topicName>/scan</topicName>
+                <frameName>sensor_ray</frameName>
+            </plugin>
+        </sensor_plugin_config>
+    </xacro:add_sensor> -->
+
+
+    <!-- Add imu senser -->
+    <!-- <xacro:add_sensor sensor_name="imu" type="imu" x_offset="0.0" y_offset="0.0"
+    z_offset="0.085"
+        r="0.0" p="0.0" y="0.0">
+        <sensor_config>
+            <always_on>true</always_on>
+            <update_rate>100</update_rate>
+            <visualize>true</visualize>
+            <topic>__default_topic__</topic>
+        </sensor_config>
+
+        <sensor_plugin_config>
+            <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+                <topicName>/imu_data</topicName>
+                <bodyName>sensor_imu</bodyName>
+                <updateRateHZ>100.0</updateRateHZ>
+                <gaussianNoise>0.001</gaussianNoise>
+                <xyzOffset>0 0 0</xyzOffset>
+                <rpyOffset>0 0 0</rpyOffset>
+                <frameName>sensor_imu</frameName>
+            </plugin>
+        </sensor_plugin_config>
+    </xacro:add_sensor> -->
+
+    <!-- Add unitree z1 -->
+    <xacro:include filename="$(find z1_description)/xacro/robot.xacro" />
+
+</robot>
