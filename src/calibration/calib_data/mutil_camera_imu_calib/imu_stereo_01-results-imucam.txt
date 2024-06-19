@@ -1,0 +1,122 @@
+Calibration results
+===================
+Normalized Residuals
+----------------------------
+Reprojection error (cam0):     mean 0.040923945931139225, median 0.038963235078946945, std: 0.02066953055438107
+Reprojection error (cam1):     mean 0.04101947463227269, median 0.03844099723637625, std: 0.021706399915697155
+Gyroscope error (imu0):        mean 0.08547974273232085, median 0.06772286334097495, std: 0.09623082625054427
+Accelerometer error (imu0):    mean 0.07344246052513469, median 0.05610670193585834, std: 0.05051472895980386
+
+Residuals
+----------------------------
+Reprojection error (cam0) [px]:     mean 0.040923945931139225, median 0.038963235078946945, std: 0.02066953055438107
+Reprojection error (cam1) [px]:     mean 0.04101947463227269, median 0.03844099723637625, std: 0.021706399915697155
+Gyroscope error (imu0) [rad/s]:     mean 0.0015019487491931749, median 0.0011899459057250713, std: 0.0016908540491685504
+Accelerometer error (imu0) [m/s^2]: mean 0.012715487114107001, median 0.009714054245721918, std: 0.008745885970707213
+
+Transformation (cam0):
+-----------------------
+T_ci:  (imu0 to cam0): 
+[[ 0.99999052  0.00430582  0.00065427  0.00321442]
+ [-0.00431169  0.99994804  0.00923754 -0.00651075]
+ [-0.00061446 -0.00924028  0.99995712 -0.021934  ]
+ [ 0.          0.          0.          1.        ]]
+
+T_ic:  (cam0 to imu0): 
+[[ 0.99999052 -0.00431169 -0.00061446 -0.00325594]
+ [ 0.00430582  0.99994804 -0.00924028  0.00629389]
+ [ 0.00065427  0.00923754  0.99995712  0.0219911 ]
+ [ 0.          0.          0.          1.        ]]
+
+timeshift cam0 to imu0: [s] (t_imu = t_cam + shift)
+-0.00022029011625776898
+
+
+Transformation (cam1):
+-----------------------
+T_ci:  (imu0 to cam1): 
+[[ 0.99998999  0.00439161  0.00085098 -0.04677217]
+ [-0.00439884  0.99995266  0.00867895 -0.0064922 ]
+ [-0.00081282 -0.00868261  0.99996198 -0.02205181]
+ [ 0.          0.          0.          1.        ]]
+
+T_ic:  (cam1 to imu0): 
+[[ 0.99998999 -0.00439884 -0.00081282  0.04672522]
+ [ 0.00439161  0.99995266 -0.00868261  0.00650583]
+ [ 0.00085098  0.00867895  0.99996198  0.02214712]
+ [ 0.          0.          0.          1.        ]]
+
+timeshift cam1 to imu0: [s] (t_imu = t_cam + shift)
+-0.0002240999570395581
+
+Baselines:
+----------
+Baseline (cam0 to cam1): 
+[[ 0.99999998  0.0000876   0.00019591 -0.04998172]
+ [-0.00008749  0.99999984 -0.00055855  0.00000658]
+ [-0.00019596  0.00055854  0.99999982 -0.00011355]
+ [ 0.          0.          0.          1.        ]]
+baseline norm:  0.049981851506320785 [m]
+
+
+Gravity vector in target coords: [m/s^2]
+[ 9.76448748 -0.01622654 -0.90716254]
+
+
+Calibration configuration
+=========================
+
+cam0
+-----
+  Camera model: pinhole
+  Focal length: [423.59895557586174, 424.0585097783456]
+  Principal point: [430.22102039555057, 232.66727315203127]
+  Distortion model: radtan
+  Distortion coefficients: [0.003800734425782644, -0.0031281724751583157, 0.00010663076641293638, -0.00019400974462796568]
+  Type: checkerboard
+  Rows
+    Count: 8
+    Distance: 0.03 [m]
+  Cols
+    Count: 11
+    Distance: 0.03 [m]
+
+cam1
+-----
+  Camera model: pinhole
+  Focal length: [424.5200370187321, 424.98099204187116]
+  Principal point: [430.2401389891949, 232.83822472105413]
+  Distortion model: radtan
+  Distortion coefficients: [0.00468015432806637, -0.00596543325527639, -5.9298703452785375e-05, -0.00045986546473688976]
+  Type: checkerboard
+  Rows
+    Count: 8
+    Distance: 0.03 [m]
+  Cols
+    Count: 11
+    Distance: 0.03 [m]
+
+
+
+IMU configuration
+=================
+
+IMU0:
+ ----------------------------
+  Model: calibrated
+  Update rate: 200.0
+  Accelerometer:
+    Noise density: 0.012242518973609421 
+    Noise density (discrete): 0.17313536370088387 
+    Random walk: 0.00039120568570580365
+  Gyroscope:
+    Noise density: 0.0012424442465566502
+    Noise density (discrete): 0.017570815039728363 
+    Random walk: 1.773126703119309e-05
+  T_ib (imu0 to imu0)
+    [[1. 0. 0. 0.]
+     [0. 1. 0. 0.]
+     [0. 0. 1. 0.]
+     [0. 0. 0. 1.]]
+  time offset with respect to IMU0: 0.0 [s]
+
