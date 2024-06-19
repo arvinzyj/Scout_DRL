@@ -6,7 +6,7 @@ Date: 2020-4-8
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="sensors">
 
 
-    <!-- <xacro:include filename="$(find scout_description)/urdf/universal_sensor_adder.xacro" /> -->
+    <xacro:include filename="$(find scout_description)/urdf/universal_sensor_adder.xacro" />
 
     <!-- Add camera senser -->
     <!-- <xacro:add_sensor sensor_name="camera" type="camera" x_offset="0.1" y_offset="0.0"
@@ -37,16 +37,16 @@ Date: 2020-4-8
         </sensor_plugin_config>
     </xacro:add_sensor> -->
 
-    <!-- <xacro:include filename="$(find realsense_ros_gazebo)/xacro/depthcam.xacro" /> -->
+    <xacro:include filename="$(find realsense_ros_gazebo)/xacro/depthcam.xacro" />
 
-    <!-- <xacro:realsense_d435 sensor_name="camera" parent_link="base_link" rate="30.0">
-        <origin rpy="0 0 0" xyz="0 0 0.5" />
-    </xacro:realsense_d435> -->
+    <xacro:realsense_d435 sensor_name="camera" parent_link="base_link" rate="30.0">
+        <origin rpy="0 0 -3.1415926" xyz="-0.15005 0 0.140" />
+    </xacro:realsense_d435>
 
     <!-- Add ray senser -->
-    <!-- <xacro:add_sensor sensor_name="ray" type="ray" x_offset="0.1" y_offset="0.0"
-    z_offset="0.14"
-        r="0.0" p="0.0" y="0.0">
+    <xacro:add_sensor sensor_name="ray" type="ray" x_offset="-0.150" y_offset="0.0"
+        z_offset="0.100"
+        r="0.0" p="0.0" y="-3.1415926">
         <sensor_config>
             <update_rate>8</update_rate>
             <visualize>true</visualize>
@@ -83,7 +83,7 @@ Date: 2020-4-8
                 <frameName>sensor_ray</frameName>
             </plugin>
         </sensor_plugin_config>
-    </xacro:add_sensor> -->
+    </xacro:add_sensor>
 
 
     <!-- Add imu senser -->
@@ -112,5 +112,8 @@ Date: 2020-4-8
 
     <!-- Add unitree z1 -->
     <xacro:include filename="$(find z1_description)/xacro/robot.xacro" />
+
+    <!-- Add connections -->
+    <xacro:include filename="$(find scout_unitree)/urdf/connections.urdf" />
 
 </robot>

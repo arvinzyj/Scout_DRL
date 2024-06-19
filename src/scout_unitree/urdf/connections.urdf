@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<robot name="connect_slabs">
+    <link name="slab01_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://scout_unitree/meshes/2mm_slab.STL"
+                    scale="0.001 0.001 0.001" />
+            </geometry>
+            <material name="Cyan">
+                <color rgba="0 1.0 1.0 1.0" />
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="package://scout_unitree/meshes/2mm_slab.STL"
+                    scale="0.001 0.001 0.001" />
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="slab02_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://scout_unitree/meshes/7mm_slab.STL"
+                    scale="0.001 0.001 0.001" />
+            </geometry>
+            <material name="Cyan">
+                <color rgba="0 1.0 1.0 1.0" />
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="package://scout_unitree/meshes/7mm_slab.STL"
+                    scale="0.001 0.001 0.001" />
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="slab03_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://scout_unitree/meshes/lidar_camera_connection.STL"
+                    scale="0.001 0.001 0.001" />
+            </geometry>
+            <material name="Cyan">
+                <color rgba="0 1.0 1.0 1.0" />
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="package://scout_unitree/meshes/lidar_camera_connection.STL"
+                    scale="0.001 0.001 0.001" />
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="slab04_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://scout_unitree/meshes/lv_frame.STL"
+                    scale="0.001 0.001 0.001" />
+            </geometry>
+            <material name="Cyan">
+                <color rgba="0 1.0 1.0 1.0" />
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="package://scout_unitree/meshes/lv_frame.STL"
+                    scale="0.001 0.001 0.001" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="slab01_link2base_link" type="fixed">
+        <origin rpy="0 0 -3.1415926" xyz="0 0 0.071" />
+        <parent link="base_link" />
+        <child link="slab01_link" />
+    </joint>
+
+    <joint name="slab02_link2base_link" type="fixed">
+        <origin rpy="1.5707963 0 -1.5707963" xyz="-0.080 0 0.361" />
+        <parent link="base_link" />
+        <child link="slab02_link" />
+    </joint>
+
+    <joint name="slab03_link2base_link" type="fixed">
+        <origin rpy="-3.1415926 0 0" xyz="-0.175 -0.031 0.1388" />
+        <parent link="base_link" />
+        <child link="slab03_link" />
+    </joint>
+
+    <joint name="slab04_link2base_link" type="fixed">
+        <origin rpy="0 -3.1415926 -3.1415926" xyz="-0.080 0 0.368" />
+        <parent link="base_link" />
+        <child link="slab04_link" />
+    </joint>
+</robot>
