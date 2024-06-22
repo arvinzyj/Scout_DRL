@@ -28,8 +28,6 @@ include_directories(
   ${EIGEN3_INCLUDE_DIR}
 )
 
-
-
 catkin_package()
 
 SET(CSM_SRC 

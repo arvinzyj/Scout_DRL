@@ -1,0 +1,41 @@
+============ calibrating... ===============
+aligned start position2 : 1718953313.641663  1718953313.633835
+nFlagDiff = 12
+
+there are 40 datas for calibrating!
+J21 = -0.344488 , J22 = 0.381358
+J21 = -0.264681 , J22 = 0.316526
+J21 = -0.286943 , J22 = 0.340039
+[1719024215.786100]: Matrix A is almost singular.
+[1719024215.786107]: Failed calibration.
+[1719024215.786110]: Matrix A is almost singular.
+[1719024215.786111]: Failed calibration.
+
+-------Calibration Results-------
+Axle between wheels: 0.400043
+cam-odom x: -0.105607
+cam-odom y: -0.125993
+cam-odom yaw: -1.210904
+Left wheel radius: 0.114789
+Right wheel radius: 0.136030
+
+there are  28 datas for refining extrinsic paras
+
+before refine: Rrc(YPR) = -1.210904 0.084091 -1.573398
+before refine: trc =  -0.105607  -0.125993
+
+after refine: Rrc(YPR) = -1.145517  0.070637  -1.579648
+after refine trc = 0.021763  -0.095687
+
+-------Errors (std dev)-------
+cam-odom x: 1.204045 mm
+cam-odom y: 0.760287 mm
+cam-odom yaw: 0.085429 deg
+
+-------Uncertainty-------
+Uncertainty Left wheel radius : 6.593177 mm 
+Uncertainty Right wheel radius : 7.055196 mm 
+Uncertainty Axle between wheels : 43.737098 mm 
+Uncertainty cam-odom-x : 84.700752 mm 
+Uncertainty cam-odom-y : 60.192776 mm 
+Uncertainty cam-odom-yaw : 3.907947 deg

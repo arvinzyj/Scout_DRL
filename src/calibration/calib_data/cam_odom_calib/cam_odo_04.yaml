@@ -1,0 +1,39 @@
+============ calibrating... ===============
+aligned start position2 : 1718524773.471784  1718524773.472357
+nFlagDiff = 61
+
+there are 371 datas for calibrating!
+J21 = -0.312655 , J22 = 0.282705
+J21 = -0.270053 , J22 = 0.248762
+J21 = -0.254134 , J22 = 0.238725
+J21 = -0.249421 , J22 = 0.231651
+J21 = -0.248517 , J22 = 0.231338
+
+-------Calibration Results-------
+Axle between wheels: 0.421361
+cam-odom x: 0.045213
+cam-odom y: 0.023434
+cam-odom yaw: -1.699043
+Left wheel radius: 0.104715
+Right wheel radius: 0.097477
+
+there are  159 datas for refining extrinsic paras
+
+before refine: Rrc(YPR) = -1.699043 -0.005228 -1.553721
+before refine: trc =  0.045213  0.023434
+
+after refine: Rrc(YPR) = -1.725230  -0.007974  -1.556969
+after refine trc = 0.046930  0.029960
+
+-------Errors (std dev)-------
+cam-odom x: 0.774132 mm
+cam-odom y: 0.494705 mm
+cam-odom yaw: 0.065954 deg
+
+-------Uncertainty-------
+Uncertainty Left wheel radius : 1.790607 mm 
+Uncertainty Right wheel radius : 1.758455 mm 
+Uncertainty Axle between wheels : 9.363353 mm 
+Uncertainty cam-odom-x : 10.573403 mm 
+Uncertainty cam-odom-y : 7.165217 mm 
+Uncertainty cam-odom-yaw : 1.386733 deg
