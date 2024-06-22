@@ -111,9 +111,9 @@ Date: 2020-4-8
     </xacro:add_sensor> -->
 
     <!-- Add unitree z1 -->
-    <xacro:include filename="$(find scout_unitree)/urdf/robot.xacro" />
+    <xacro:include filename="$(find scout_unitree_gazebo)/urdf/robot.xacro" />
 
     <!-- Add connections -->
-    <xacro:include filename="$(find scout_unitree)/urdf/connections.urdf" />
+    <xacro:include filename="$(find scout_unitree_gazebo)/urdf/connections.urdf" />
 
 </robot>
