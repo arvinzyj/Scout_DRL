@@ -20,10 +20,6 @@ bool SolveQyx::estimateRyx(std::vector<data_selection::sync_data> sync_result, E
             axis[2] + 1, 0, -axis[0], -axis[1],
             -axis[1], axis[0], 0, 1 - axis[2],
             axis[0], axis[1], -1 + axis[2], 0;
-        // M_tmp << 0, -1 - axis[0], axis[2], axis[1],
-        //     axis[0] + 1, 0, axis[1], -axis[2],
-        //     -axis[2], -axis[1], 0, 1 - axis[0],
-        //     -axis[1], axis[2], -1 + axis[0], 0;
         M.block<4, 4>(i * 4, 0) = sin(sync_result[i].angle) * M_tmp;
     }
     // M.conservativeResize((id-1)*4,4);

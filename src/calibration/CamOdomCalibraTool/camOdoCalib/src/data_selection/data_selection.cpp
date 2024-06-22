@@ -38,6 +38,7 @@ void data_selection::selectData(OdomPtr &odoDatas, CamPtr &camDatas, std::vector
     camDatas.swap(cam_matches);
     odoDatas.swap(odo_matches);
 }
+
 void data_selection::camOdoAlign(OdomPtr &odoDatas, CamPtr &camDatas,
                                  std::vector<data_selection::sync_data> &sync_result)
 {
@@ -149,9 +150,10 @@ void data_selection::camOdoAlign(OdomPtr &odoDatas, CamPtr &camDatas,
             //        y               -x      |            y              z
             //       z               y         |            z               y
 
+            // sync_tmp.scan_match_results[0] = camDatas[i].tlc[0];
+            // sync_tmp.scan_match_results[1] = camDatas[i].tlc[2];
             sync_tmp.scan_match_results[0] = camDatas[i].tlc[0];
-            sync_tmp.scan_match_results[1] = camDatas[i].tlc[2];
-            // sync_tmp.scan_match_results[1] = camDatas[i].tlc[1];
+            sync_tmp.scan_match_results[1] = camDatas[i].tlc[1];
             sync_tmp.scan_match_results[2] = camDatas[i].deltaTheta;
 
             sync_tmp.tcl_cam = -camDatas[i].Rcl * camDatas[i].tlc;
@@ -178,10 +180,10 @@ void data_selection::camOdoAlign(OdomPtr &odoDatas, CamPtr &camDatas,
             //        y               -x      |            y              z
             //       z               y         |            z               y
 
+            // sync_tmp.scan_match_results[0] = camDatas[i].tlc[0];
+            // sync_tmp.scan_match_results[1] = camDatas[i].tlc[2];
             sync_tmp.scan_match_results[0] = camDatas[i].tlc[0];
-            sync_tmp.scan_match_results[1] = camDatas[i].tlc[2];
-            // sync_tmp.scan_match_results[1] = camDatas[i].tlc[1];
-            // double angle_tmp = (camDatas[i].theta_y > 0.0?1:(-1)) * camDatas[i].deltaTheta;
+            sync_tmp.scan_match_results[1] = camDatas[i].tlc[1];
             sync_tmp.scan_match_results[2] = camDatas[i].deltaTheta;
 
             sync_tmp.tcl_cam = -camDatas[i].Rcl * camDatas[i].tlc;

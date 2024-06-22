@@ -19,6 +19,7 @@
 
 #include "camera_models/include/Camera.h"
 #include "camera_models/include/CameraFactory.h"
+#include "camera_models/include/PinholeCamera.h"
 #include "calc_cam_pose/calcCamPose.h"
 
 #include "solveQyx.h"
@@ -165,13 +166,11 @@ void calc_process(const CameraPtr &cam)
                 Eigen::AngleAxisd rotation_vector(q_cl);
                 Eigen::Vector3d axis = rotation_vector.axis();
                 double deltaTheta_cl = rotation_vector.angle();
-                if (axis(1) > 0)
-                {
-                    deltaTheta_cl *= -1;
-                    axis *= -1;
-                    // deltaTheta_cl *= 1;
-                    // axis *= 1;
-                }
+                // if (axis(1) > 0)
+                // {
+                //     deltaTheta_cl *= -1;
+                //     axis *= -1;
+                // }
 
                 // Eigen::Vector3d tcl = -Rwc.inverse() * (twc - twl);
                 Eigen::Vector3d tlc = -Rwl.inverse() * (twl - twc);
@@ -179,13 +178,13 @@ void calc_process(const CameraPtr &cam)
                 data_selection::cam_data cam_tmp;
                 cam_tmp.start_t = t_last;
                 cam_tmp.end_t = time;
-                // cam_tmp.theta_y = theta_y;
                 cam_tmp.deltaTheta = -deltaTheta_cl; // cam_tmp.deltaTheta is deltaTheta_lc
                 cam_tmp.axis = axis;
                 cam_tmp.Rcl = Rcl;
                 cam_tmp.tlc = tlc;
                 camDatas.push_back(cam_tmp);
             }
+            std::cout << std::endl;
             t_last = time;
             Rwl = Rwc;
             twl = twc;

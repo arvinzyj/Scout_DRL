@@ -1,4 +1,5 @@
 #include "calcCamPose.h"
+#include "../camera_models/include/PinholeCamera.h"
 
 void FindTargetCorner(cv::Mat &img_raw, const PatternType &pt,
                       std::vector<cv::Point3f> &p3ds,
@@ -46,13 +47,14 @@ void FindTargetCorner(cv::Mat &img_raw, const PatternType &pt,
     {
         // const int april_rows = 6;
         const int april_cols = 6;
-        const double tag_sz = 0.055;
-        const double tag_spacing_sz = 0.0715; // 0.055 + 0.0165
+        const double tag_sz = 0.03;
+        const double tag_spacing_sz = 0.039; // 0.055 + 0.0165
 
         AprilTags::TagCodes tagCodes(AprilTags::tagCodes36h11);
         AprilTags::TagDetector detector(tagCodes);
         std::vector<AprilTags::TagDetection> detections =
             detector.extractTags(img_raw);
+        // std::cout << "detections.size() = " << detections.size() << std::endl;
         // if (detections.size() == april_rows * april_cols)
         if (detections.size() > 20)
         {
@@ -67,10 +69,12 @@ void FindTargetCorner(cv::Mat &img_raw, const PatternType &pt,
                     tag_corners.at<float>(4 * i + j, 1) = detections[i].p[j].second;
                 }
             }
+            // std::cout << "tag_corners = " << tag_corners << std::endl;
             cv::cornerSubPix(
                 img_raw, tag_corners, cv::Size(2, 2), cv::Size(-1, -1),
                 cv::TermCriteria(CV_TERMCRIT_EPS + CV_TERMCRIT_ITER, 30, 0.1));
             cv::cvtColor(img_raw, img_raw, CV_GRAY2BGR);
+            // std::cout << "tag_corners = " << tag_corners << std::endl;
 
             // draw axis
             /*double center_u = tag_corners.at<float>(0, 0);
@@ -215,11 +219,10 @@ bool calcCamPose(const double &timestamps, const cv::Mat &image,
 
     std::vector<cv::Point3f> p3ds;
     std::vector<cv::Point2f> p2ds;
-    FindTargetCorner(img_raw, CHESS, p3ds, p2ds);
-    // FindTargetCorner(img_raw, APRIL, p3ds, p2ds);
+    // FindTargetCorner(img_raw, CHESS, p3ds, p2ds);
+    FindTargetCorner(img_raw, APRIL, p3ds, p2ds);
 
     std::vector<double> p = cam->getK();
-    // std::cout << p[0] << " " << p[1] << " " << p[2] << " " << p[3] << std::endl;
     std::vector<cv::Point2f> un_pts;
     for (int i = 0, iend = (int)p2ds.size(); i < iend; ++i)
     {
@@ -228,8 +231,6 @@ bool calcCamPose(const double &timestamps, const cv::Mat &image,
         cam->liftProjective(a, b);
         un_pts.push_back(
             cv::Point2f(p[0] * b.x() / b.z() + p[2], p[1] * b.y() / b.z() + p[3]));
-        // std::cout << "p2ds: " << p2ds[i] << std::endl;
-        // std::cout << "un_pts: " << un_pts[i] << std::endl;
     }
 
     if (EstimatePose(p3ds, un_pts, p[0], p[2], p[1], p[3], Twc, img_raw, cam))

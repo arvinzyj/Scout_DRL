@@ -73,25 +73,25 @@
     </link>
 
     <joint name="slab01_link2base_link" type="fixed">
-        <origin rpy="0 0 -3.1415926" xyz="0 0 0.071" />
+        <origin rpy="0 0 0" xyz="0 0 0.071" />
         <parent link="base_link" />
         <child link="slab01_link" />
     </joint>
 
     <joint name="slab02_link2base_link" type="fixed">
-        <origin rpy="1.5707963 0 -1.5707963" xyz="-0.080 0 0.361" />
+        <origin rpy="1.5707963 0 -1.5707963" xyz="0.080 0 0.361" />
         <parent link="base_link" />
         <child link="slab02_link" />
     </joint>
 
     <joint name="slab03_link2base_link" type="fixed">
-        <origin rpy="-3.1415926 0 0" xyz="-0.175 -0.031 0.1388" />
+        <origin rpy="-3.1415926 0 3.1415926" xyz="0.175 0.031 0.1388" />
         <parent link="base_link" />
         <child link="slab03_link" />
     </joint>
 
     <joint name="slab04_link2base_link" type="fixed">
-        <origin rpy="0 -3.1415926 -3.1415926" xyz="-0.080 0 0.368" />
+        <origin rpy="0 -3.1415926 -3.1415926" xyz="0.080 0 0.368" />
         <parent link="base_link" />
         <child link="slab04_link" />
     </joint>
