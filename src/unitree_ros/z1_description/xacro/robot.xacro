@@ -8,11 +8,11 @@
 
     <xacro:arg name="UnitreeGripper" default="false" />
 
-    <!-- <link name="world" /> -->
+    <link name="world" />
 
     <joint name="base_static_joint" type="fixed">
-        <origin rpy="0 0 -3.1415926" xyz="-0.1082 0 0.368" />
-        <parent link="base_link" />
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <parent link="world" />
         <child link="link00" />
     </joint>
 
