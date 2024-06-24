@@ -77,7 +77,8 @@
         "cfenv": "cpp",
         "cinttypes": "cpp",
         "typeindex": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "cholesky": "cpp"
     },
     "Codegeex.Comment.LanguagePreference": "English"
 }
