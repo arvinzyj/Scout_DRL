@@ -1,0 +1,1 @@
+scout_unitree_control/TrajectoryPoint[] points
