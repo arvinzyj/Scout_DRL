@@ -80,7 +80,10 @@
         "typeinfo": "cpp",
         "cholesky": "cpp",
         "*.ipp": "cpp",
-        "forward_list": "cpp"
+        "forward_list": "cpp",
+        "codecvt": "cpp",
+        "valarray": "cpp",
+        "variant": "cpp"
     },
     "Codegeex.Comment.LanguagePreference": "English",
     "cmake.sourceDirectory": "/home/arvin/02_study/03_ros_melodic/my_catkin_ws/sig_out/z1_controller"
