@@ -6,45 +6,6 @@
 #include <geometry_msgs/Twist.h>
 #include <tf/transform_datatypes.h>
 
-// int main(int argc, char **argv)
-// {
-//     ros::init(argc, argv, "trajectory_publisher");
-//     ros::NodeHandle nh;
-
-//     ros::Publisher traj_pub = nh.advertise<geometry_msgs::PoseArray>("/trajectory", 10);
-
-//     ros::Rate rate(1); // 1 Hz
-
-//     while (ros::ok())
-//     {
-//         geometry_msgs::PoseArray pose_array;
-//         pose_array.header.stamp = ros::Time::now();
-//         pose_array.header.frame_id = "map";
-
-//         // Create a simple trajectory: a straight line with constant orientation
-//         for (int i = 0; i < 1001; ++i)
-//         {
-//             double t = i / 1000.0;
-//             geometry_msgs::Pose pose;
-//             pose.position.x = 0.01 * std::pow(t, 3) - 0.0015 * std::pow(t, 4) + 0.00006 * std::pow(t, 5);
-//             pose.position.y = 0.0;
-//             pose.position.z = 0.0;
-
-//             // Set the orientation to be constant (facing along the x-axis)
-//             pose.orientation = tf::createQuaternionMsgFromYaw(0.0);
-
-//             pose_array.poses.push_back(pose);
-//         }
-
-//         traj_pub.publish(pose_array);
-
-//         ros::spinOnce();
-//         rate.sleep();
-//     }
-
-//     return 0;
-// }
-
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "trajectory_publisher");
@@ -80,7 +41,6 @@ int main(int argc, char **argv)
 
             traj_points.points.push_back(traj_point);
         }
-        std::cout << "length = " << traj_points.points.size() << std::endl;
         traj_pub.publish(traj_points);
 
         ros::spinOnce();

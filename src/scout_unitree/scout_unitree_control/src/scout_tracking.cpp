@@ -16,7 +16,10 @@ ScoutTracking::ScoutTracking(ros::NodeHandle &nh) : nh_(nh), linear_k1_(1.0), an
 void ScoutTracking::odomCallback(const nav_msgs::Odometry::ConstPtr &msg)
 {
     current_pose_ = msg->pose.pose;
-    computeControl();
+    tf::Quaternion quat;
+    tf::quaternionMsgToTF(current_pose_.orientation, quat);
+    quat.normalize();
+    tf::quaternionTFToMsg(quat, current_pose_.orientation);
 }
 
 void ScoutTracking::goalCallback(const scout_unitree_control::TrajectoryArray::ConstPtr &msg)
@@ -102,14 +105,19 @@ void ScoutTracking::computeControl()
     std::cout << "t = " << t << std::endl;
     double v_d = 0.0, w_d = 0.0;
     geometry_msgs::Pose desire_pose;
+    desire_pose.position.x = 0.0;
+    desire_pose.position.y = 0.0;
+    desire_pose.position.z = 0.0;
+    desire_pose.orientation = tf::createQuaternionMsgFromYaw(0.0);
     getDesire(t, v_d, w_d, desire_pose);
+    v_d = 0.03 * std::pow(t, 2) - 0.006 * std::pow(t, 3) + 0.0003 * std::pow(t, 4);
+    w_d = 0.0;
 
     geometry_msgs::Twist cmd;
-    // const auto &goal_pose = trajectory_[current_goal_index_];
     Eigen::Vector3d q_error = this->getError(current_pose_, desire_pose);
 
     cmd.linear.x = (v_d - linear_k1_ * abs(v_d) * (q_error(1)) + (q_error(2) * tan(q_error(0)))) / cos(q_error(0));
-    // cmd.angular.z = w_d - (angular_k2_ * v_d * q_error(2) + angular_k3_ + abs(v_d) * tan(q_error(0))) * cos(q_error(0) * cos(q_error(0)));
+    cmd.angular.z = w_d - (angular_k2_ * v_d * q_error(2) + angular_k3_ * abs(v_d) * tan(q_error(0))) * cos(q_error(0) * cos(q_error(0)));
     std::cout << "v = " << cmd.linear.x << std::endl;
     std::cout << "w = " << cmd.angular.z << std::endl;
 
@@ -124,6 +132,7 @@ void ScoutTracking::computeControl()
 
 int main(int argc, char **argv)
 {
+    setlocale(LC_ALL, "");
     ros::init(argc, argv, "scout_tracking");
     ros::NodeHandle nh;
 
@@ -134,8 +143,8 @@ int main(int argc, char **argv)
     while (ros::ok())
     {
         tracker.computeControl();
-        ros::spinOnce();
         rate.sleep();
+        ros::spinOnce();
     }
 
     return 0;

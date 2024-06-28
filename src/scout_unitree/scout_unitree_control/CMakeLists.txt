@@ -158,6 +158,7 @@ include_directories(
 # add_executable(${PROJECT_NAME}_node src/scout_unitree_control_node.cpp)
 add_executable(scout_tracking src/scout_tracking.cpp)
 add_executable(trajectory_generate src/trajectory_generate.cpp)
+add_executable(scout_opening src/scout_opening.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -178,6 +179,9 @@ target_link_libraries(scout_tracking
   ${catkin_LIBRARIES}
 )
 target_link_libraries(trajectory_generate
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(scout_opening
   ${catkin_LIBRARIES}
 )
 
