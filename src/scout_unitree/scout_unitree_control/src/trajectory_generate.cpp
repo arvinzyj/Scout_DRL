@@ -97,7 +97,7 @@ int main(int argc, char **argv)
             traj_point.velocity.linear.z = 0.0;
             traj_point.velocity.angular.x = 0.0;
             traj_point.velocity.angular.y = 0.0;
-            traj_point.velocity.angular.z = (dy * ddx - dx * ddy) / (dx * dx + dy * dy);
+            traj_point.velocity.angular.z = (dx * ddy - dy * ddx) / (dx * dx + dy * dy);
 
             traj_points.points.push_back(traj_point);
         }
