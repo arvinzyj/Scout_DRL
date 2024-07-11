@@ -1,5 +1,18 @@
 <launch>
-    <node name="rviz" pkg="rviz" type="rviz"
-        args="-d $(find scout_description)/rviz/navigation.rviz" />
+    <!--  ************** Global Parameters ***************  -->
+    <arg name="controller" default="mpc" doc="opt: mpc, lqr, pid" />
+    <arg name="trajectory_type" default="epitrochoid"
+        doc="opt: straight, circle, curve" />
+
+    <!--  ************** Reference trajectory generation **************  -->
+    <node name="mpc_trajectory_generation" pkg="mpc_ros" type="mpc_trajectory_generation.py">
+        <param name="trajectory_type" value="$(arg trajectory_type)" />
+    </node>
+
+    <!--  ************** MPC Node **************  -->
+    <node name="MPC_tracking" pkg="mpc_ros" type="tracking_reference_trajectory" output="screen"
+        if="$(eval controller == 'mpc')">
+        <rosparam file="$(find mpc_ros)/params/mpc_local_square_params.yaml" command="load" />
+    </node>
 
 </launch>

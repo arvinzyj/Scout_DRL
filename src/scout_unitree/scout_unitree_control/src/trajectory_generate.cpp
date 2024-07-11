@@ -27,13 +27,13 @@ int main(int argc, char **argv)
         //     double t = i / 100.0;
 
         //     // Fill in the position
-        //     traj_point.pose.position.x = 0.01 * std::pow(t, 3) - 0.0015 * std::pow(t, 4) + 0.00006 * std::pow(t, 5);
+        //     traj_point.pose.position.x = 0.05 * std::pow(t, 3) - 0.0075 * std::pow(t, 4) + 0.0003 * std::pow(t, 5);
         //     traj_point.pose.position.y = 0.0;
         //     traj_point.pose.position.z = 0.0;
         //     traj_point.pose.orientation = tf::createQuaternionMsgFromYaw(0.0);
 
         //     // Fill in the velocity
-        //     traj_point.velocity.linear.x = 0.03 * std::pow(t, 2) - 0.006 * std::pow(t, 3) + 0.0003 * std::pow(t, 4);
+        //     traj_point.velocity.linear.x = 0.15 * std::pow(t, 2) - 0.03 * std::pow(t, 3) + 0.0015 * std::pow(t, 4);
         //     traj_point.velocity.linear.y = 0.0;
         //     traj_point.velocity.linear.z = 0.0;
         //     traj_point.velocity.angular.x = 0.0;
@@ -49,7 +49,7 @@ int main(int argc, char **argv)
         //     scout_unitree_control::TrajectoryPoint traj_point;
 
         //     double t = i / 100.0;
-        //     double radius = 5.0;
+        //     double radius = 1.0;
 
         //     // Fill in the position
         //     traj_point.pose.position.x = radius * std::sin(0.2 * M_PI * t);
