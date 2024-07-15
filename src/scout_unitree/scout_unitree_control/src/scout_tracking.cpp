@@ -3,6 +3,7 @@
 ScoutTracking::ScoutTracking(ros::NodeHandle &nh) : nh_(nh), linear_k1_(1.0), angular_k2_(1.0), angular_k3_(1.0), current_goal_index_(0)
 {
     odom_sub_ = nh_.subscribe("/odom", 10, &ScoutTracking::odomCallback, this);
+    // odom_sub_ = nh_.subscribe("/aft_mapped_to_init", 10, &ScoutTracking::odomCallback, this);
     goal_sub_ = nh_.subscribe("/trajectory", 10, &ScoutTracking::goalCallback, this); // 订阅轨迹话题
     cmd_pub_ = nh_.advertise<geometry_msgs::Twist>("/cmd_vel", 10);
 
