@@ -1,6 +1,6 @@
 #include "scout_tracking.h"
 
-ScoutTracking::ScoutTracking(ros::NodeHandle &nh) : nh_(nh), linear_k1_(1.0), angular_k2_(1.0), angular_k3_(1.0), current_goal_index_(0), delay_(0.2), dt_(0.1)
+ScoutTracking::ScoutTracking(ros::NodeHandle &nh) : nh_(nh), linear_k1_(1.0), angular_k2_(1.0), angular_k3_(1.0), current_goal_index_(0), delay_(0.1), dt_(0.1)
 {
     odom_sub_ = nh_.subscribe("/odom", 10, &ScoutTracking::odomCallback, this);
     // odom_sub_ = nh_.subscribe("/aft_mapped_to_init", 10, &ScoutTracking::odomCallback, this);

@@ -1,6 +1,6 @@
 <launch>
     <!--  ************** Global Parameters ***************  -->
-    <arg name="trajectory_type" default="circle" doc="opt: straight, circle, curve" />
+    <arg name="trajectory_type" default="straight" doc="opt: straight, circle, curve" />
     <arg name="controller" default="common" doc="opt: common, mpc, lqr, pid" />
 
     <!--  ************** Reference trajectory generation **************  -->
