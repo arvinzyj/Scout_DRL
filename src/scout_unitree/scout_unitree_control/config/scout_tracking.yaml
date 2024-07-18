@@ -1,0 +1,11 @@
+linear_k1_: 1.0
+angular_k2_: 1.0
+angular_k3_: 1.0
+
+# compensate delay
+delay_: 0.125
+dt: 0.05
+
+# lower and upper bound
+v_max: 3.0 # m/s
+w_max: 2.523 # rad/s

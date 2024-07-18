@@ -1,18 +1,15 @@
 <launch>
     <!--  ************** Global Parameters ***************  -->
-    <arg name="controller" default="mpc" doc="opt: mpc, lqr, pid" />
-    <arg name="trajectory_type" default="epitrochoid"
-        doc="opt: straight, circle, curve" />
+    <arg name="controller" default="common" doc="opt: common, mpc, lqr, pid" />
+    <arg name="trajectory_type" default="straight" doc="opt: straight, circle, curve" />
 
     <!--  ************** Reference trajectory generation **************  -->
-    <node name="mpc_trajectory_generation" pkg="mpc_ros" type="mpc_trajectory_generation.py">
-        <param name="trajectory_type" value="$(arg trajectory_type)" />
-    </node>
+    <node name="trajectory_generate" pkg="scout_unitree_control" type="trajectory_generate"> </node>
 
-    <!--  ************** MPC Node **************  -->
-    <node name="MPC_tracking" pkg="mpc_ros" type="tracking_reference_trajectory" output="screen"
-        if="$(eval controller == 'mpc')">
-        <rosparam file="$(find mpc_ros)/params/mpc_local_square_params.yaml" command="load" />
+    <!--  ************** Tracking Node **************  -->
+    <node name="scout_tracking" pkg="scout_unitree_control" type="scout_tracking" output="screen"
+        if="$(eval controller == 'common')">
+        <rosparam file="$(find scout_unitree_control)/config/scout_tracking.yaml" command="load" />
     </node>
 
 </launch>
