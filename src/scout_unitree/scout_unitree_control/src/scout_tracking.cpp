@@ -139,10 +139,8 @@ void ScoutTracking::computeControl()
     desire_pose.orientation = tf::createQuaternionMsgFromYaw(0.0);
     getDesire(t, v_d, w_d, desire_pose);
 
-    std::cout << "v = 1" << std::endl;
     geometry_msgs::Twist cmd;
     Eigen::Vector3d q_error = this->getError(current_pose_, desire_pose);
-    std::cout << "v = 2" << std::endl;
 
     cmd.linear.x = (v_d - linear_k1_ * abs(v_d) * (q_error(1)) + (q_error(2) * tan(q_error(0)))) / cos(q_error(0));
     cmd.angular.z = w_d - (angular_k2_ * v_d * q_error(2) + angular_k3_ * abs(v_d) * tan(q_error(0))) * cos(q_error(0) * cos(q_error(0)));

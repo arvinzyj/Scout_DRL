@@ -1,10 +1,12 @@
 <launch>
     <!--  ************** Global Parameters ***************  -->
+    <arg name="trajectory_type" default="circle" doc="opt: straight, circle, curve" />
     <arg name="controller" default="common" doc="opt: common, mpc, lqr, pid" />
-    <arg name="trajectory_type" default="straight" doc="opt: straight, circle, curve" />
 
     <!--  ************** Reference trajectory generation **************  -->
-    <node name="trajectory_generate" pkg="scout_unitree_control" type="trajectory_generate"> </node>
+    <node name="trajectory_generate" pkg="scout_unitree_control" type="trajectory_generate">
+        <param name="trajectory_type" value="$(arg trajectory_type)" />
+    </node>
 
     <!--  ************** Tracking Node **************  -->
     <node name="scout_tracking" pkg="scout_unitree_control" type="scout_tracking" output="screen"
