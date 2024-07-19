@@ -7,11 +7,14 @@ ScoutTracking::ScoutTracking(ros::NodeHandle &nh) : nh_(nh), linear_k1_(1.0), an
     goal_sub_ = nh_.subscribe("/trajectory", 10, &ScoutTracking::goalCallback, this); // 订阅轨迹话题
     cmd_pub_ = nh_.advertise<geometry_msgs::Twist>("/cmd_vel", 10);
 
-    nh_.param("linear_k1", linear_k1_);
-    nh_.param("angular_k2", angular_k2_);
-    nh_.param("angular_k3", angular_k3_);
-    nh_.param("delay_", delay_);
-    nh_.param("dt_", dt_);
+    nh_.param("/scout_tracking/linear_k1", linear_k1_, 1.0);
+    nh_.param("/scout_tracking/angular_k2", angular_k2_, 1.0);
+    nh_.param("/scout_tracking/angular_k3", angular_k3_, 1.0);
+    nh_.param("/scout_tracking/delay", delay_, 0.1);
+    nh_.param("/scout_tracking/dt", dt_, 0.1);
+
+    std::cout << "linear_k1: " << linear_k1_ << ", angular_k2: " << angular_k2_ << ", angular_k3: " << angular_k3_ << std::endl;
+    std::cout << "delay: " << delay_ << ", dt: " << dt_ << std::endl;
 
     history_length_ = std::ceil(delay_ / dt_);
     for (int i = 0; i < history_length_; ++i)
