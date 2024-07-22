@@ -23,11 +23,11 @@ public:
 
     VectorX diff(const VectorX &state, const VectorU &input) const;
     void step(VectorX &state, const VectorU &input, const double dt) const;
+    void getDesire(double t, double &v_d, double &w_d, geometry_msgs::Pose &desire_pose);
 
 private:
     void odomCallback(const nav_msgs::Odometry::ConstPtr &msg);
     void goalCallback(const scout_unitree_control::TrajectoryArray::ConstPtr &msg);
-    void getDesire(double t, double &v_d, double &w_d, geometry_msgs::Pose &desire_pose);
     VectorX compensateDelay(const VectorX &x0);
     Eigen::Vector3d getError(const geometry_msgs::Pose &current_pose, const geometry_msgs::Pose &goal_pose);
 
