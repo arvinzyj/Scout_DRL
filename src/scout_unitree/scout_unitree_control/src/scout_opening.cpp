@@ -30,7 +30,8 @@ void computeControl()
 
     if (trajectory_type_ == "straight")
     {
-        v_d = 0.15 * std::pow(t, 2) - 0.03 * std::pow(t, 3) + 0.0015 * std::pow(t, 4);
+        // v_d = 0.15 * std::pow(t, 2) - 0.03 * std::pow(t, 3) + 0.0015 * std::pow(t, 4);  // 5m
+        v_d = 0.03 * std::pow(t, 2) - 0.006 * std::pow(t, 3) + 0.0003 * std::pow(t, 4); // 1m
     }
     else if (trajectory_type_ == "circle")
     {
@@ -41,26 +42,45 @@ void computeControl()
     }
     else if (trajectory_type_ == "curve")
     {
-        double x = 0.05 * std::pow(t, 3) - 0.0075 * std::pow(t, 4) + 0.0003 * std::pow(t, 5);
-        double dx = 0.15 * std::pow(t, 2) - 0.03 * std::pow(t, 3) + 0.0015 * std::pow(t, 4);
-        double ddx = 0.3 * t - 0.09 * std::pow(t, 2) + 0.006 * std::pow(t, 3);
-        double y = 0.4 * std::pow(x, 3) - 0.12 * std::pow(x, 4) + 0.0096 * std::pow(x, 5);
-        double dy_dx = 1.2 * std::pow(x, 2) - 0.48 * std::pow(x, 3) + 0.048 * std::pow(x, 4);
-        double ddy_dx = 2.4 * x - 1.44 * std::pow(x, 2) + 0.192 * std::pow(x, 3);
+        // // 5m X 5m
+        // double x = 0.05 * std::pow(t, 3) - 0.0075 * std::pow(t, 4) + 0.0003 * std::pow(t, 5);
+        // double dx = 0.15 * std::pow(t, 2) - 0.03 * std::pow(t, 3) + 0.0015 * std::pow(t, 4);
+        // double ddx = 0.3 * t - 0.09 * std::pow(t, 2) + 0.006 * std::pow(t, 3);
+        // double y = 0.4 * std::pow(x, 3) - 0.12 * std::pow(x, 4) + 0.0096 * std::pow(x, 5);
+        // double dy_dx = 1.2 * std::pow(x, 2) - 0.48 * std::pow(x, 3) + 0.048 * std::pow(x, 4);
+        // double ddy_dx = 2.4 * x - 1.44 * std::pow(x, 2) + 0.192 * std::pow(x, 3);
+        // double dy = dy_dx * dx;
+        // double ddy = ddy_dx * dx * dx + dy_dx * ddx;
+        // double yaw = std::atan(dy_dx);
+
+        // 2m X 1m
+        double x = 0.02 * std::pow(t, 3) - 0.003 * std::pow(t, 4) + 0.00012 * std::pow(t, 5);
+        double dx = 0.06 * std::pow(t, 2) - 0.012 * std::pow(t, 3) + 0.0006 * std::pow(t, 4);
+        double ddx = 0.12 * t - 0.036 * std::pow(t, 2) + 0.0024 * std::pow(t, 3);
+        double y = 1.25 * std::pow(x, 3) - 0.9375 * std::pow(x, 4) + 0.1875 * std::pow(x, 5);
+        double dy_dx = 3.75 * std::pow(x, 2) - 3.75 * std::pow(x, 3) + 0.9375 * std::pow(x, 4);
+        double ddy_dx = 7.5 * x - 11.25 * std::pow(x, 2) + 3.75 * std::pow(x, 3);
         double dy = dy_dx * dx;
         double ddy = ddy_dx * dx * dx + dy_dx * ddx;
         double yaw = std::atan(dy_dx);
 
         // Fill in the velocity
         v_d = std::sqrt(dx * dx + dy * dy);
-        w_d = (dx * ddy - dy * ddx) / (dx * dx + dy * dy);
+        if (v_d == 0)
+        {
+            w_d = 0;
+        }
+        else
+        {
+            w_d = (dx * ddy - dy * ddx) / (dx * dx + dy * dy);
+        }
     }
     else
     {
         ROS_WARN("Unknown trajectory type: %s", trajectory_type_.c_str());
     }
 
-    if (t > 12.0)
+    if (t > 10.1)
     {
         v_d = 0.0;
         w_d = 0.0;

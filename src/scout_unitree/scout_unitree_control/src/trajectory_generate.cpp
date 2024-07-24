@@ -31,13 +31,15 @@ int main(int argc, char **argv)
                 double t = i / 100.0;
 
                 // Fill in the position
-                traj_point.pose.position.x = 0.05 * std::pow(t, 3) - 0.0075 * std::pow(t, 4) + 0.0003 * std::pow(t, 5);
+                // traj_point.pose.position.x = 0.05 * std::pow(t, 3) - 0.0075 * std::pow(t, 4) + 0.0003 * std::pow(t, 5);  // 5m
+                traj_point.pose.position.x = 0.01 * std::pow(t, 3) - 0.0015 * std::pow(t, 4) + 0.00006 * std::pow(t, 5); // 1m
                 traj_point.pose.position.y = 0.0;
                 traj_point.pose.position.z = 0.0;
                 traj_point.pose.orientation = tf::createQuaternionMsgFromYaw(0.0);
 
                 // Fill in the velocity
-                traj_point.velocity.linear.x = 0.15 * std::pow(t, 2) - 0.03 * std::pow(t, 3) + 0.0015 * std::pow(t, 4);
+                // traj_point.velocity.linear.x = 0.15 * std::pow(t, 2) - 0.03 * std::pow(t, 3) + 0.0015 * std::pow(t, 4);  // 5m
+                traj_point.velocity.linear.x = 0.03 * std::pow(t, 2) - 0.006 * std::pow(t, 3) + 0.0003 * std::pow(t, 4); // 1m
                 traj_point.velocity.linear.y = 0.0;
                 traj_point.velocity.linear.z = 0.0;
                 traj_point.velocity.angular.x = 0.0;
@@ -81,12 +83,24 @@ int main(int argc, char **argv)
 
                 double t = i / 100.0;
 
-                double x = 0.05 * std::pow(t, 3) - 0.0075 * std::pow(t, 4) + 0.0003 * std::pow(t, 5);
-                double dx = 0.15 * std::pow(t, 2) - 0.03 * std::pow(t, 3) + 0.0015 * std::pow(t, 4);
-                double ddx = 0.3 * t - 0.09 * std::pow(t, 2) + 0.006 * std::pow(t, 3);
-                double y = 0.4 * std::pow(x, 3) - 0.12 * std::pow(x, 4) + 0.0096 * std::pow(x, 5);
-                double dy_dx = 1.2 * std::pow(x, 2) - 0.48 * std::pow(x, 3) + 0.048 * std::pow(x, 4);
-                double ddy_dx = 2.4 * x - 1.44 * std::pow(x, 2) + 0.192 * std::pow(x, 3);
+                // // 5m X 5m
+                // double x = 0.05 * std::pow(t, 3) - 0.0075 * std::pow(t, 4) + 0.0003 * std::pow(t, 5);
+                // double dx = 0.15 * std::pow(t, 2) - 0.03 * std::pow(t, 3) + 0.0015 * std::pow(t, 4);
+                // double ddx = 0.3 * t - 0.09 * std::pow(t, 2) + 0.006 * std::pow(t, 3);
+                // double y = 0.4 * std::pow(x, 3) - 0.12 * std::pow(x, 4) + 0.0096 * std::pow(x, 5);
+                // double dy_dx = 1.2 * std::pow(x, 2) - 0.48 * std::pow(x, 3) + 0.048 * std::pow(x, 4);
+                // double ddy_dx = 2.4 * x - 1.44 * std::pow(x, 2) + 0.192 * std::pow(x, 3);
+                // double dy = dy_dx * dx;
+                // double ddy = ddy_dx * dx * dx + dy_dx * ddx;
+                // double yaw = std::atan(dy_dx);
+
+                // 2m X 1m
+                double x = 0.02 * std::pow(t, 3) - 0.003 * std::pow(t, 4) + 0.00012 * std::pow(t, 5);
+                double dx = 0.06 * std::pow(t, 2) - 0.012 * std::pow(t, 3) + 0.0006 * std::pow(t, 4);
+                double ddx = 0.12 * t - 0.036 * std::pow(t, 2) + 0.0024 * std::pow(t, 3);
+                double y = 1.25 * std::pow(x, 3) - 0.9375 * std::pow(x, 4) + 0.1875 * std::pow(x, 5);
+                double dy_dx = 3.75 * std::pow(x, 2) - 3.75 * std::pow(x, 3) + 0.9375 * std::pow(x, 4);
+                double ddy_dx = 7.5 * x - 11.25 * std::pow(x, 2) + 3.75 * std::pow(x, 3);
                 double dy = dy_dx * dx;
                 double ddy = ddy_dx * dx * dx + dy_dx * ddx;
                 double yaw = std::atan(dy_dx);

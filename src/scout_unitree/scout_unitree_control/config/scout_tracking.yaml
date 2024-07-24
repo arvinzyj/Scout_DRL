@@ -3,7 +3,7 @@ angular_k2: 1.0
 angular_k3: 1.0
 
 # compensate delay
-delay: 0.2
+delay: 0.1
 dt: 0.1
 
 # lower and upper bound

@@ -1,45 +1,50 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include <sstream>
-#include "scout_tracking.h"
+#include <Eigen/Cholesky>
+#include <Eigen/LU>
 
 typedef Eigen::Matrix<double, 3, 3> Matrix33;
 typedef Eigen::Matrix<double, 3, 2> Matrix32;
 typedef Eigen::Matrix<double, 2, 3> Matrix23;
-typedef Eigen::Matrix<double, 3, 2> Matrix22;
+typedef Eigen::Matrix<double, 2, 2> Matrix22;
 
-// Eigen::Matrix3d sloveDare(const Matrix33 &A, const Matrix32 &B, const Matrix33 &Q, const Matrix22 &R)
-// {
-//     // solve a discrete time_Algebratic Riccati Equation
-//     Eigen::Matrix3d P = Q;
-//     Eigen::Matrix3d P_next = Q;
-//     int max_iter = 150;
-//     double eps = 0.01;
+// lqr parameters
+Eigen::MatrixXd Q = Eigen::MatrixXd::Identity(3, 3);
+Eigen::MatrixXd R = Eigen::MatrixXd::Identity(2, 2);
 
-//     for (int i = 0; i < max_iter; i++)
-//     {
-//         P_next = Q + A.transpose() * P * A - A.transpose() * P * B * (R + B.transpose() * P * B).inverse() * B.transpose() * P * A;
-//         if ((P_next - P).norm() < eps)
-//         {
-//             P = P_next;
-//             break;
-//         }
-//         P = P_next;
-//     }
+Matrix33 sloveDare(const Matrix33 &A, const Matrix32 &B)
+{
+    // solve a discrete time_Algebratic Riccati Equation
+    Matrix33 P = Q;
+    Matrix33 P_next = Q;
+    int max_iter = 150;
+    double eps = 0.01;
 
-//     return P_next;
-// }
+    for (int i = 0; i < max_iter; i++)
+    {
+        P_next = Q + A.transpose() * P * A - A.transpose() * P * B * ((R + B.transpose() * P * B).inverse()) * B.transpose() * P * A;
+        if ((P_next - P).norm() < eps)
+        {
+            P = P_next;
+            break;
+        }
+        P = P_next;
+    }
 
-// void sloveLqr(const Matrix33 &A, const Matrix32 &B, const Matrix33 &Q, const Matrix22 &R, const Eigen::Vector3d &x_e)
-// {
-//     Eigen::Matrix3d P = sloveDare(A, B, Q, R);
+    return P_next;
+}
 
-//     Matrix23 K = (R + B.transpose() * P * B).inverse() * B.transpose() * P * A;
+void sloveLqr(const Matrix33 &A, const Matrix32 &B, const Eigen::Vector3d &x_e)
+{
+    Eigen::Matrix3d P = sloveDare(A, B);
 
-//     Eigen::Vector2d u_e = -K * x_e;
-//     Eigen::Vector3d x_next_e = A * x_e + B * u_e;
-//     return;
-// }
+    Matrix23 K = (R + B.transpose() * P * B).inverse() * B.transpose() * P * A;
+
+    Eigen::Vector2d u_e = -K * x_e;
+    Eigen::Vector3d x_next_e = A * x_e + B * u_e;
+    return;
+}
 
 int main(int argc, char *argv[])
 {
