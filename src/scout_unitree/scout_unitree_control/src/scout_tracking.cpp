@@ -2,19 +2,21 @@
 
 ScoutTracking::ScoutTracking(ros::NodeHandle &nh) : nh_(nh), linear_k1_(1.0), angular_k2_(1.0), angular_k3_(1.0), current_goal_index_(0), delay_(0.1), dt_(0.1)
 {
-    odom_sub_ = nh_.subscribe("/odom", 10, &ScoutTracking::odomCallback, this);
-    // odom_sub_ = nh_.subscribe("/aft_mapped_to_init", 10, &ScoutTracking::odomCallback, this);
-    goal_sub_ = nh_.subscribe("/trajectory", 10, &ScoutTracking::goalCallback, this); // 订阅轨迹话题
-    cmd_pub_ = nh_.advertise<geometry_msgs::Twist>("/cmd_vel", 10);
 
     nh_.param("/scout_tracking/linear_k1", linear_k1_, 1.0);
     nh_.param("/scout_tracking/angular_k2", angular_k2_, 1.0);
     nh_.param("/scout_tracking/angular_k3", angular_k3_, 1.0);
     nh_.param("/scout_tracking/delay", delay_, 0.1);
     nh_.param("/scout_tracking/dt", dt_, 0.1);
+    nh_.param("/scout_tracking/odom_topic", odom_topic_, std::string("odom"));
 
     std::cout << "linear_k1: " << linear_k1_ << ", angular_k2: " << angular_k2_ << ", angular_k3: " << angular_k3_ << std::endl;
     std::cout << "delay: " << delay_ << ", dt: " << dt_ << std::endl;
+    std::cout << "odom_topic: " << odom_topic_ << std::endl;
+
+    odom_sub_ = nh_.subscribe(odom_topic_, 20, &ScoutTracking::odomCallback, this);
+    goal_sub_ = nh_.subscribe("/trajectory", 10, &ScoutTracking::goalCallback, this); // 订阅轨迹话题
+    cmd_pub_ = nh_.advertise<geometry_msgs::Twist>("/cmd_vel", 20);
 
     history_length_ = std::ceil(delay_ / dt_);
     for (int i = 0; i < history_length_; ++i)
@@ -150,6 +152,13 @@ void ScoutTracking::computeControl()
     VectorU predicInput = {cmd.linear.x, cmd.angular.z};
     historyInput_.pop_front();
     historyInput_.push_back(predicInput);
+    if (t > 10.1)
+    {
+    cmd.linear.x = 0;
+    cmd.angular.z = 0;
+    v_d = 0;
+    w_d = 0;
+    }
     std::cout << "v = " << cmd.linear.x << std::endl;
     std::cout << "w = " << cmd.angular.z << std::endl;
 

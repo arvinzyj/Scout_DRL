@@ -51,6 +51,7 @@ private:
     int history_length_;
     double delay_;
     double dt_;
+    std::string odom_topic_;
 };
 
 inline VectorX ScoutTracking::diff(const VectorX &state, const VectorU &input) const

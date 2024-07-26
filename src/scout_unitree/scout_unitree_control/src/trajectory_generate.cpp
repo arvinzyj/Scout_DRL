@@ -31,15 +31,38 @@ int main(int argc, char **argv)
                 double t = i / 100.0;
 
                 // Fill in the position
-                // traj_point.pose.position.x = 0.05 * std::pow(t, 3) - 0.0075 * std::pow(t, 4) + 0.0003 * std::pow(t, 5);  // 5m
                 traj_point.pose.position.x = 0.01 * std::pow(t, 3) - 0.0015 * std::pow(t, 4) + 0.00006 * std::pow(t, 5); // 1m
                 traj_point.pose.position.y = 0.0;
                 traj_point.pose.position.z = 0.0;
                 traj_point.pose.orientation = tf::createQuaternionMsgFromYaw(0.0);
 
                 // Fill in the velocity
-                // traj_point.velocity.linear.x = 0.15 * std::pow(t, 2) - 0.03 * std::pow(t, 3) + 0.0015 * std::pow(t, 4);  // 5m
                 traj_point.velocity.linear.x = 0.03 * std::pow(t, 2) - 0.006 * std::pow(t, 3) + 0.0003 * std::pow(t, 4); // 1m
+                traj_point.velocity.linear.y = 0.0;
+                traj_point.velocity.linear.z = 0.0;
+                traj_point.velocity.angular.x = 0.0;
+                traj_point.velocity.angular.y = 0.0;
+                traj_point.velocity.angular.z = 0.0;
+
+                traj_points.points.push_back(traj_point);
+            }
+        }
+        else if (trajectory_type == "highstraight")
+        {
+            for (int i = 0; i < 1001; ++i)
+            {
+                scout_unitree_control::TrajectoryPoint traj_point;
+
+                double t = i / 100.0;
+
+                // Fill in the position
+                traj_point.pose.position.x = 0.05 * std::pow(t, 3) - 0.0075 * std::pow(t, 4) + 0.0003 * std::pow(t, 5);  // 5m
+                traj_point.pose.position.y = 0.0;
+                traj_point.pose.position.z = 0.0;
+                traj_point.pose.orientation = tf::createQuaternionMsgFromYaw(0.0);
+
+                // Fill in the velocity
+                traj_point.velocity.linear.x = 0.15 * std::pow(t, 2) - 0.03 * std::pow(t, 3) + 0.0015 * std::pow(t, 4);  // 5m
                 traj_point.velocity.linear.y = 0.0;
                 traj_point.velocity.linear.z = 0.0;
                 traj_point.velocity.angular.x = 0.0;
@@ -56,21 +79,24 @@ int main(int argc, char **argv)
                 scout_unitree_control::TrajectoryPoint traj_point;
 
                 double t = i / 100.0;
-                double radius = 1.0;
+                double radius = 0.5;
+
+                double phi = 0.02 * M_PI * std::pow(t, 3) - 0.003 * M_PI * std::pow(t, 4) + 0.00012 * M_PI * std::pow(t, 5);
+                double w = 0.06 * M_PI * std::pow(t, 2) - 0.012 * M_PI * std::pow(t, 3) + 0.0006 * M_PI * std::pow(t, 4);
 
                 // Fill in the position
-                traj_point.pose.position.x = radius * std::sin(0.2 * M_PI * t);
-                traj_point.pose.position.y = -radius * std::cos(0.2 * M_PI * t) + radius;
+                traj_point.pose.position.x = radius * std::sin(phi);
+                traj_point.pose.position.y = -radius * std::cos(phi) + radius;
                 traj_point.pose.position.z = 0.0;
-                traj_point.pose.orientation = tf::createQuaternionMsgFromYaw(0.2 * M_PI * t);
+                traj_point.pose.orientation = tf::createQuaternionMsgFromYaw(phi);
 
                 // Fill in the velocity
-                traj_point.velocity.linear.x = 0.2 * M_PI * radius;
+                traj_point.velocity.linear.x = w * radius;
                 traj_point.velocity.linear.y = 0.0;
                 traj_point.velocity.linear.z = 0.0;
                 traj_point.velocity.angular.x = 0.0;
                 traj_point.velocity.angular.y = 0.0;
-                traj_point.velocity.angular.z = 0.2 * M_PI;
+                traj_point.velocity.angular.z = w;
 
                 traj_points.points.push_back(traj_point);
             }
@@ -83,17 +109,6 @@ int main(int argc, char **argv)
 
                 double t = i / 100.0;
 
-                // // 5m X 5m
-                // double x = 0.05 * std::pow(t, 3) - 0.0075 * std::pow(t, 4) + 0.0003 * std::pow(t, 5);
-                // double dx = 0.15 * std::pow(t, 2) - 0.03 * std::pow(t, 3) + 0.0015 * std::pow(t, 4);
-                // double ddx = 0.3 * t - 0.09 * std::pow(t, 2) + 0.006 * std::pow(t, 3);
-                // double y = 0.4 * std::pow(x, 3) - 0.12 * std::pow(x, 4) + 0.0096 * std::pow(x, 5);
-                // double dy_dx = 1.2 * std::pow(x, 2) - 0.48 * std::pow(x, 3) + 0.048 * std::pow(x, 4);
-                // double ddy_dx = 2.4 * x - 1.44 * std::pow(x, 2) + 0.192 * std::pow(x, 3);
-                // double dy = dy_dx * dx;
-                // double ddy = ddy_dx * dx * dx + dy_dx * ddx;
-                // double yaw = std::atan(dy_dx);
-
                 // 2m X 1m
                 double x = 0.02 * std::pow(t, 3) - 0.003 * std::pow(t, 4) + 0.00012 * std::pow(t, 5);
                 double dx = 0.06 * std::pow(t, 2) - 0.012 * std::pow(t, 3) + 0.0006 * std::pow(t, 4);
@@ -101,6 +116,42 @@ int main(int argc, char **argv)
                 double y = 1.25 * std::pow(x, 3) - 0.9375 * std::pow(x, 4) + 0.1875 * std::pow(x, 5);
                 double dy_dx = 3.75 * std::pow(x, 2) - 3.75 * std::pow(x, 3) + 0.9375 * std::pow(x, 4);
                 double ddy_dx = 7.5 * x - 11.25 * std::pow(x, 2) + 3.75 * std::pow(x, 3);
+                double dy = dy_dx * dx;
+                double ddy = ddy_dx * dx * dx + dy_dx * ddx;
+                double yaw = std::atan(dy_dx);
+
+                // Fill in the position
+                traj_point.pose.position.x = x;
+                traj_point.pose.position.y = y;
+                traj_point.pose.position.z = 0.0;
+                traj_point.pose.orientation = tf::createQuaternionMsgFromYaw(yaw);
+
+                // Fill in the velocity
+                traj_point.velocity.linear.x = std::sqrt(dx * dx + dy * dy);
+                traj_point.velocity.linear.y = 0.0;
+                traj_point.velocity.linear.z = 0.0;
+                traj_point.velocity.angular.x = 0.0;
+                traj_point.velocity.angular.y = 0.0;
+                traj_point.velocity.angular.z = (dx * ddy - dy * ddx) / (dx * dx + dy * dy);
+
+                traj_points.points.push_back(traj_point);
+            }
+        }
+        else if (trajectory_type == "highcurve")
+        {
+            for (int i = 0; i < 1001; ++i)
+            {
+                scout_unitree_control::TrajectoryPoint traj_point;
+
+                double t = i / 100.0;
+
+                // 5m X 5m
+                double x = 0.05 * std::pow(t, 3) - 0.0075 * std::pow(t, 4) + 0.0003 * std::pow(t, 5);
+                double dx = 0.15 * std::pow(t, 2) - 0.03 * std::pow(t, 3) + 0.0015 * std::pow(t, 4);
+                double ddx = 0.3 * t - 0.09 * std::pow(t, 2) + 0.006 * std::pow(t, 3);
+                double y = 0.4 * std::pow(x, 3) - 0.12 * std::pow(x, 4) + 0.0096 * std::pow(x, 5);
+                double dy_dx = 1.2 * std::pow(x, 2) - 0.48 * std::pow(x, 3) + 0.048 * std::pow(x, 4);
+                double ddy_dx = 2.4 * x - 1.44 * std::pow(x, 2) + 0.192 * std::pow(x, 3);
                 double dy = dy_dx * dx;
                 double ddy = ddy_dx * dx * dx + dy_dx * ddx;
                 double yaw = std::atan(dy_dx);

@@ -1,7 +1,8 @@
 <launch>
     <!--  ************** Global Parameters ***************  -->
-    <arg name="trajectory_type" default="curve" doc="opt: straight, circle, curve" />
-    <arg name="controller" default="common" doc="opt: open, common, mpc, lqr, pid" />
+    <arg name="trajectory_type" default="straight"
+        doc="opt: straight, circle, curve, highstraight, highcurve" />
+    <arg name="controller" default="track" doc="opt: open, track, mpc, lqr, pid" />
 
     <!--  ************** Reference trajectory generation **************  -->
     <node name="trajectory_generate" pkg="scout_unitree_control" type="trajectory_generate">
@@ -13,7 +14,7 @@
         if="$(eval controller == 'open')">
     </node>
     <node name="scout_tracking" pkg="scout_unitree_control" type="scout_tracking" output="screen"
-        if="$(eval controller == 'common')">
+        if="$(eval controller == 'track')">
         <rosparam file="$(find scout_unitree_control)/config/scout_tracking.yaml" command="load" />
     </node>
 
