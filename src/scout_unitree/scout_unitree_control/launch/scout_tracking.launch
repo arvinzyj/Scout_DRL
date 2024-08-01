@@ -1,6 +1,6 @@
 <launch>
     <!--  ************** Global Parameters ***************  -->
-    <arg name="trajectory_type" default="straight"
+    <arg name="trajectory_type" default="highcurve"
         doc="opt: straight, circle, curve, highstraight, highcurve" />
     <arg name="controller" default="track" doc="opt: open, track, mpc, lqr, pid" />
 

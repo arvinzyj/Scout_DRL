@@ -160,6 +160,8 @@ add_executable(scout_tracking src/scout_tracking.cpp)
 add_executable(scout_tracking_lqr src/scout_tracking_lqr.cpp)
 add_executable(trajectory_generate src/trajectory_generate.cpp)
 add_executable(scout_opening src/scout_opening.cpp)
+add_executable(april_odom src/april_odom.cpp)
+add_executable(tag_odom src/tag_odom.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -186,6 +188,12 @@ target_link_libraries(trajectory_generate
   ${catkin_LIBRARIES}
 )
 target_link_libraries(scout_opening
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(april_odom
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(tag_odom
   ${catkin_LIBRARIES}
 )
 
